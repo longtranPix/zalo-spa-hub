@@ -73,6 +73,10 @@
       @apply max-w-md mx-auto bg-white min-h-screen pb-20;
     }
 
+    .zalo-page {
+      @apply max-w-md mx-auto bg-white min-h-screen pb-20;
+    }
+
     .zalo-header {
       @apply sticky top-0 z-10 bg-white px-4 py-3 flex items-center justify-between border-b border-gray-100 shadow-sm;
     }
@@ -85,4 +89,22 @@
       @apply bg-white rounded-xl shadow-sm overflow-hidden transition-all hover:shadow-md;
     }
   }
+}
+
+/* ZMP UI Overrides */
+:root {
+  --zmp-primary-color: #A162F7;
+  --zmp-page-bg-color: #F5F5F5;
+}
+
+.zaui-header {
+  background-color: var(--zmp-primary-color) !important;
+}
+
+.zaui-header-title {
+  color: white !important;
+}
+
+.zaui-box {
+  background-color: var(--zmp-page-bg-color);
 }

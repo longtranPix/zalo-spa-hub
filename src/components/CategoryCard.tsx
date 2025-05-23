@@ -20,20 +20,15 @@ const CategoryCard: React.FC<CategoryCardProps> = ({
 }) => {
   return (
     <Link to={`/categories/${id}`}>
-      <Card className="spa-card h-full transition-all hover:shadow-md">
-        <CardContent className="p-4 flex items-center">
-          <div 
-            className="w-12 h-12 rounded-full flex items-center justify-center mr-4"
-            style={{ backgroundColor: color }}
-          >
-            {icon}
-          </div>
-          <div>
-            <h3 className="font-semibold">{name}</h3>
-            <p className="text-sm text-muted-foreground">{count} services</p>
-          </div>
-        </CardContent>
-      </Card>
+      <div className="flex flex-col items-center justify-center">
+        <div 
+          className="w-16 h-16 rounded-full flex items-center justify-center mb-2"
+          style={{ backgroundColor: color }}
+        >
+          {icon}
+        </div>
+        <p className="text-xs text-center font-medium mt-1">{name}</p>
+      </div>
     </Link>
   );
 };

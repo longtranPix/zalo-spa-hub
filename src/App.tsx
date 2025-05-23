@@ -10,6 +10,7 @@ import CategoryList from "./pages/CategoryList";
 import ServiceDetail from "./pages/ServiceDetail";
 import Profile from "./pages/Profile";
 import Bookings from "./pages/Bookings";
+import UserBills from "./pages/UserBills";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -27,6 +28,7 @@ const App = () => (
             <Route path="/service/:id" element={<ServiceDetail />} />
             <Route path="/profile" element={<Profile />} />
             <Route path="/bookings" element={<Bookings />} />
+            <Route path="/bills" element={<UserBills />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </BrowserRouter>

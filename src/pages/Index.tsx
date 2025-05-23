@@ -1,11 +1,12 @@
-
 import { useState, useEffect } from 'react';
 import { useZalo } from '@/contexts/ZaloContext';
 import PageLayout from '@/components/layout/PageLayout';
 import ServiceCard from '@/components/ServiceCard';
 import CategoryCard from '@/components/CategoryCard';
 import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
 import { Link } from 'react-router-dom';
+import { Search } from 'lucide-react';
 
 // Mock data
 const featuredServices = [
@@ -43,61 +44,130 @@ const featuredServices = [
 
 const categories = [
   {
-    id: 'massage',
-    name: 'Massage',
+    id: 'appointment',
+    name: 'Đặt hẹn',
     icon: (
       <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="h-6 w-6">
-        <circle cx="12" cy="12" r="10" />
-        <path d="m4.93 4.93 4.24 4.24" />
-        <path d="m14.83 9.17 4.24-4.24" />
-        <path d="m14.83 14.83 4.24 4.24" />
-        <path d="m9.17 14.83-4.24 4.24" />
+        <rect x="3" y="4" width="18" height="18" rx="2" ry="2" />
+        <line x1="16" y1="2" x2="16" y2="6" />
+        <line x1="8" y1="2" x2="8" y2="6" />
+        <line x1="3" y1="10" x2="21" y2="10" />
       </svg>
     ),
-    count: 12,
-    color: '#4ECDC4'
+    count: 5,
+    color: '#7367F0'
   },
   {
-    id: 'facial',
-    name: 'Facial',
+    id: 'bills',
+    name: 'Hóa đơn',
     icon: (
       <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="h-6 w-6">
-        <circle cx="12" cy="8" r="5" />
-        <path d="M20 21a8 8 0 0 0-16 0" />
+        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+        <path d="M14 2v6h6" />
+        <path d="M16 13H8" />
+        <path d="M16 17H8" />
+        <path d="M10 9H8" />
       </svg>
     ),
     count: 8,
-    color: '#9F86C0'
+    color: '#28C76F'
   },
   {
-    id: 'body',
-    name: 'Body Treatment',
+    id: 'treatment',
+    name: 'Liệu trình',
     icon: (
       <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="h-6 w-6">
-        <path d="m8 2 4 10 4-10" />
-        <path d="M12 12v10" />
-      </svg>
-    ),
-    count: 10,
-    color: '#F8B195'
-  },
-  {
-    id: 'hair',
-    name: 'Hair & Nails',
-    icon: (
-      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="h-6 w-6">
-        <path d="M5.2 18H20" />
-        <path d="M5.2 18a2 2 0 1 0 0 4H20v-4" />
-        <path d="M15 10v4" />
-        <path d="M8 10v4" />
-        <path d="M12 10v4" />
-        <path d="M2 10v4" />
-        <path d="M20 10v4" />
-        <path d="M2 14h20" />
+        <path d="M20 21v-8a2 2 0 0 0-2-2h-1" />
+        <path d="M13 13V8a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2" />
+        <path d="m5 18 14-7" />
       </svg>
     ),
     count: 6,
-    color: '#2CAE66'
+    color: '#9F86C0'
+  },
+  {
+    id: 'feedback',
+    name: 'Feedback',
+    icon: (
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="h-6 w-6">
+        <path d="M14 9a2 2 0 0 1-2 2H6l-4 4V4c0-1.1.9-2 2-2h8a2 2 0 0 1 2 2v5Z" />
+        <path d="M18 9h2a2 2 0 0 1 2 2v11l-4-4h-6a2 2 0 0 1-2-2v-1" />
+      </svg>
+    ),
+    count: 4,
+    color: '#EA5455'
+  },
+  {
+    id: 'news',
+    name: 'Tin tức',
+    icon: (
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="h-6 w-6">
+        <path d="m3 21 1.9-5.7a8.5 8.5 0 1 1 3.8 3.8z" />
+      </svg>
+    ),
+    count: 7,
+    color: '#00CFE8'
+  },
+];
+
+// Spa service categories
+const spaCategories = [
+  {
+    id: 'skin',
+    name: 'Điều trị da',
+    icon: (
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="h-6 w-6">
+        <path d="M20.24 12.24a6 6 0 0 0-8.49-8.49L5 10.5V19h8.5z" />
+      </svg>
+    ),
+    count: 12,
+    color: '#A162F7'
+  },
+  {
+    id: 'skincare',
+    name: 'Chăm sóc da',
+    icon: (
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="h-6 w-6">
+        <path d="M12 22s8-4 8-10V7l-8-5-8 5v5c0 6 8 10 8 10" />
+      </svg>
+    ),
+    count: 8,
+    color: '#325795'
+  },
+  {
+    id: 'tech',
+    name: 'Công nghệ cao',
+    icon: (
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="h-6 w-6">
+        <path d="m8 3 4 8 5-5 5 15H2L8 3z" />
+      </svg>
+    ),
+    count: 5,
+    color: '#D64A4A'
+  },
+  {
+    id: 'waxing',
+    name: 'Triệt lông',
+    icon: (
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="h-6 w-6">
+        <path d="M12 2v20" />
+        <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" />
+      </svg>
+    ),
+    count: 6,
+    color: '#A162F7'
+  },
+  {
+    id: 'whitening',
+    name: 'Tắm trắng',
+    icon: (
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="h-6 w-6">
+        <circle cx="12" cy="12" r="10" />
+        <path d="m4.93 4.93 14.14 14.14" />
+      </svg>
+    ),
+    count: 4,
+    color: '#D64A4A'
   },
 ];
 
@@ -137,56 +207,47 @@ const Index = () => {
 
   return (
     <PageLayout title="Serene Spa">
-      {/* Greeting Section */}
-      <section className="mb-6 animate-slide-up">
-        <h2 className="text-2xl font-semibold mb-2">
-          Hello, {userInfo?.name || 'Guest'}
-        </h2>
-        <p className="text-muted-foreground">
-          Find your perfect spa service today
-        </p>
-      </section>
-
-      {/* Featured Services */}
-      <section className="mb-8 animate-slide-up" style={{ animationDelay: '100ms' }}>
-        <div className="flex justify-between items-center mb-4">
-          <h2 className="text-xl font-semibold">Featured Services</h2>
-          <Button variant="ghost" size="sm" asChild>
-            <Link to="/categories">View All</Link>
-          </Button>
+      {/* Search Bar */}
+      <div className="mb-6 animate-slide-up">
+        <div className="relative">
+          <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground h-4 w-4" />
+          <Input 
+            type="search"
+            placeholder="Tìm kiếm"
+            className="pl-10 bg-muted/40 border-none"
+          />
         </div>
-        <div className="grid grid-cols-1 gap-4">
-          {featuredServices.map((service) => (
-            <ServiceCard key={service.id} {...service} />
+      </div>
+
+      {/* Main Categories */}
+      <div className="mb-8 animate-slide-up">
+        <div className="grid grid-cols-5 gap-4">
+          {categories.map((category) => (
+            <CategoryCard key={category.id} {...category} />
           ))}
         </div>
-      </section>
+      </div>
 
-      {/* Categories */}
-      <section className="mb-8 animate-slide-up" style={{ animationDelay: '200ms' }}>
-        <div className="flex justify-between items-center mb-4">
-          <h2 className="text-xl font-semibold">Categories</h2>
-          <Button variant="ghost" size="sm" asChild>
-            <Link to="/categories">View All</Link>
-          </Button>
-        </div>
-        <div className="grid grid-cols-2 gap-4">
-          {categories.map((category) => (
+      {/* Spa Categories */}
+      <section className="mb-8 bg-white rounded-lg p-4 shadow-sm animate-slide-up">
+        <h2 className="text-lg font-semibold mb-4">Dịch vụ spa</h2>
+        <div className="grid grid-cols-5 gap-x-2 gap-y-4">
+          {spaCategories.map((category) => (
             <CategoryCard key={category.id} {...category} />
           ))}
         </div>
       </section>
 
-      {/* Popular Services */}
-      <section className="animate-slide-up" style={{ animationDelay: '300ms' }}>
+      {/* Featured Services */}
+      <section className="mb-8 animate-slide-up" style={{ animationDelay: '100ms' }}>
         <div className="flex justify-between items-center mb-4">
-          <h2 className="text-xl font-semibold">Popular Services</h2>
+          <h2 className="text-xl font-semibold">Dịch vụ nổi bật</h2>
           <Button variant="ghost" size="sm" asChild>
-            <Link to="/categories">View All</Link>
+            <Link to="/categories">Xem thêm</Link>
           </Button>
         </div>
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-          {popularServices.map((service) => (
+        <div className="grid grid-cols-1 gap-4">
+          {featuredServices.map((service) => (
             <ServiceCard key={service.id} {...service} />
           ))}
         </div>

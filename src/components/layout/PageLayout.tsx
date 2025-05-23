@@ -1,7 +1,7 @@
 
 import React, { ReactNode } from 'react';
-import Header from './Header';
-import BottomNav from './BottomNav';
+import { useNavigate } from 'react-router-dom';
+import PageZMP from './PageZMP';
 
 interface PageLayoutProps {
   children: ReactNode;
@@ -18,18 +18,22 @@ const PageLayout: React.FC<PageLayoutProps> = ({
   hideBottomNav = false,
   rightElement,
 }) => {
+  const navigate = useNavigate();
+
+  const handleBackClick = () => {
+    navigate(-1);
+  };
+
   return (
-    <div className="zalo-container">
-      <Header 
-        title={title} 
-        showBackButton={showBackButton} 
-        rightElement={rightElement} 
-      />
-      <main className="zalo-content pb-16">
-        {children}
-      </main>
-      {!hideBottomNav && <BottomNav />}
-    </div>
+    <PageZMP
+      title={title}
+      showBackButton={showBackButton}
+      hideBottomNav={hideBottomNav}
+      rightElement={rightElement}
+      onBackClick={handleBackClick}
+    >
+      {children}
+    </PageZMP>
   );
 };
 

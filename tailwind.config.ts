@@ -62,8 +62,10 @@ export default {
 					teal: '#4ECDC4',
 					lavender: '#9F86C0',
 					peach: '#F8B195',
-					cream: '#FFF8E8'
-				}
+					cream: '#FFF8E8',
+					purple: '#A162F7'
+				},
+				title: '#A162F7',
 			},
 			borderRadius: {
 				lg: 'var(--radius)',
