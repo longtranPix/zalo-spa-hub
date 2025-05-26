@@ -1,8 +1,9 @@
 
 import React, { ReactNode } from 'react';
-import { Page, Box } from 'zmp-ui';
+import { Page, Box, Header } from 'zmp-ui';
 import HeaderZMP from './HeaderZMP';
 import BottomNav from './BottomNav';
+import { ChevronLeft } from 'lucide-react';
 
 interface PageZMPProps {
   children: ReactNode;
@@ -22,13 +23,14 @@ const PageZMP: React.FC<PageZMPProps> = ({
   onBackClick,
 }) => {
   return (
-    <Page className="zalo-page">
-      <HeaderZMP 
+    <Page className="pb-14 overflow-x-hidden">
+      <Header
         title={title} 
-        onBackClick={showBackButton ? onBackClick : undefined} 
-        rightElement={rightElement} 
+        backIcon = {<ChevronLeft className="text-white" />}
+        onBackClick={onBackClick} 
+        className='bg-violet-500'
       />
-      <Box className="zalo-content pb-16">
+      <Box className="zalo-content ">
         {children}
       </Box>
       {!hideBottomNav && <BottomNav />}

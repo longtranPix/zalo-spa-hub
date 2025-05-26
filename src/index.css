@@ -70,11 +70,11 @@
   /* Additional layer for component-specific styles */
   @layer components {
     .zalo-container {
-      @apply max-w-md mx-auto bg-white min-h-screen pb-20;
+      @apply  bg-white min-h-screen pb-20;
     }
 
     .zalo-page {
-      @apply max-w-md mx-auto bg-white min-h-screen pb-20;
+      @apply max-w-md mx-auto bg-white;
     }
 
     .zalo-header {
@@ -82,7 +82,7 @@
     }
 
     .zalo-content {
-      @apply px-4 py-4;
+      @apply px-4 py-3;
     }
 
     .spa-card {
@@ -98,7 +98,14 @@
 }
 
 .zaui-header {
-  background-color: var(--zmp-primary-color) !important;
+  position: sticky;
+  height: auto;
+  margin-bottom: 0;
+  flex: none;
+
+  &::after {
+    display: none;
+  }
 }
 
 .zaui-header-title {
@@ -108,3 +115,5 @@
 .zaui-box {
   background-color: var(--zmp-page-bg-color);
 }
+
+

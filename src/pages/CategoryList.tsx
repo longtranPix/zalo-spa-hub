@@ -117,7 +117,7 @@ const allCategories = [
 const CategoryList = () => {
   return (
     <PageLayout title="Categories" showBackButton>
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 animate-fade-in">
+      <div className="grid grid-cols-3 gap-4 animate-fade-in">
         {allCategories.map((category) => (
           <CategoryCard key={category.id} {...category} />
         ))}

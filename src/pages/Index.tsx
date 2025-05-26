@@ -5,8 +5,9 @@ import ServiceCard from '@/components/ServiceCard';
 import CategoryCard from '@/components/CategoryCard';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { Link } from 'react-router-dom';
-import { Search } from 'lucide-react';
+import { Link, useNavigate } from 'react-router-dom';
+import { ChevronLeft, Search } from 'lucide-react';
+import { Header } from 'zmp-ui';
 
 // Mock data
 const featuredServices = [
@@ -195,6 +196,7 @@ const popularServices = [
 const Index = () => {
   const { userInfo, showToast } = useZalo();
   const [loading, setLoading] = useState(true);
+  const navigate = useNavigate();
 
   useEffect(() => {
     // Simulate loading data
@@ -208,7 +210,8 @@ const Index = () => {
   return (
     <PageLayout title="Serene Spa">
       {/* Search Bar */}
-      <div className="mb-6 animate-slide-up">
+      
+      {/* <div className="mb-6 animate-slide-up">
         <div className="relative">
           <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground h-4 w-4" />
           <Input 
@@ -217,11 +220,11 @@ const Index = () => {
             className="pl-10 bg-muted/40 border-none"
           />
         </div>
-      </div>
+      </div> */}
 
       {/* Main Categories */}
       <div className="mb-8 animate-slide-up">
-        <div className="grid grid-cols-5 gap-4">
+        <div className="grid grid-cols-4 gap-4">
           {categories.map((category) => (
             <CategoryCard key={category.id} {...category} />
           ))}
