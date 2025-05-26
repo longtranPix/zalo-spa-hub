@@ -1,10 +1,11 @@
 
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import PageLayout from '@/components/layout/PageLayout';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Separator } from '@/components/ui/separator';
 import { Badge } from '@/components/ui/badge';
+import { Button } from '@/components/ui/button';
 
 // Dữ liệu hóa đơn khách hàng
 const userBills = [
@@ -116,36 +117,38 @@ const UserBills = () => {
 
         {/* Danh sách hóa đơn */}
         {userBills.map((bill) => (
-          <Card key={bill.id} className="spa-card">
-            <CardHeader className="pb-2">
-              <div className="flex justify-between items-start">
-                <div>
-                  <CardTitle className="text-base">{bill.serviceName}</CardTitle>
-                  <p className="text-sm text-muted-foreground">
-                    {formatDate(bill.date)} • {bill.time}
-                  </p>
-                  <p className="text-sm text-muted-foreground">
-                    Hair Stylist: {bill.stylist}
-                  </p>
+          <Card key={bill.id} className="spa-card cursor-pointer hover:shadow-md transition-shadow">
+            <Link to={`/bills/${bill.id}`}>
+              <CardHeader className="pb-2">
+                <div className="flex justify-between items-start">
+                  <div>
+                    <CardTitle className="text-base">{bill.serviceName}</CardTitle>
+                    <p className="text-sm text-muted-foreground">
+                      {formatDate(bill.date)} • {bill.time}
+                    </p>
+                    <p className="text-sm text-muted-foreground">
+                      Hair Stylist: {bill.stylist}
+                    </p>
+                  </div>
+                  <Badge className={`${getStatusColor(bill.status)}`}>
+                    {getStatusText(bill.status)}
+                  </Badge>
                 </div>
-                <Badge className={`${getStatusColor(bill.status)}`}>
-                  {getStatusText(bill.status)}
-                </Badge>
-              </div>
-            </CardHeader>
-            <CardContent>
-              <div className="space-y-2">
-                <div className="flex justify-between text-sm">
-                  <span className="text-muted-foreground">Mã hóa đơn</span>
-                  <span className="font-medium">{bill.id}</span>
+              </CardHeader>
+              <CardContent>
+                <div className="space-y-2">
+                  <div className="flex justify-between text-sm">
+                    <span className="text-muted-foreground">Mã hóa đơn</span>
+                    <span className="font-medium">{bill.id}</span>
+                  </div>
+                  <Separator />
+                  <div className="flex justify-between text-sm">
+                    <span className="text-muted-foreground">Thành tiền</span>
+                    <span className="font-semibold text-violet-500">{formatPrice(bill.price)}</span>
+                  </div>
                 </div>
-                <Separator />
-                <div className="flex justify-between text-sm">
-                  <span className="text-muted-foreground">Thành tiền</span>
-                  <span className="font-semibold text-violet-500">{formatPrice(bill.price)}</span>
-                </div>
-              </div>
-            </CardContent>
+              </CardContent>
+            </Link>
           </Card>
         ))}
       </div>

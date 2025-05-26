@@ -12,6 +12,12 @@ import ServiceDetail from "./pages/ServiceDetail";
 import Profile from "./pages/Profile";
 import Bookings from "./pages/Bookings";
 import UserBills from "./pages/UserBills";
+import BillDetail from "./pages/BillDetail";
+import StoreList from "./pages/StoreList";
+import StoreDetail from "./pages/StoreDetail";
+import NewsList from "./pages/NewsList";
+import NewsDetail from "./pages/NewsDetail";
+import BookingForm from "./pages/BookingForm";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -30,7 +36,13 @@ const App = () => (
             <Route path="/service/:id" element={<ServiceDetail />} />
             <Route path="/profile" element={<Profile />} />
             <Route path="/bookings" element={<Bookings />} />
+            <Route path="/booking" element={<BookingForm />} />
             <Route path="/bills" element={<UserBills />} />
+            <Route path="/bills/:id" element={<BillDetail />} />
+            <Route path="/stores" element={<StoreList />} />
+            <Route path="/stores/:id" element={<StoreDetail />} />
+            <Route path="/news" element={<NewsList />} />
+            <Route path="/news/:id" element={<NewsDetail />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </TooltipProvider>

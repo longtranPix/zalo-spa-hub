@@ -17,12 +17,13 @@ const BottomNav = () => {
       )
     },
     {
-      name: 'Dịch vụ',
-      path: '/categories',
+      name: 'Cửa hàng',
+      path: '/stores',
       icon: (
         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="h-5 w-5">
-          <path d="M12 2v8" />
-          <path d="m16.24 7.76-5.9 5.9" />
+          <path d="M3 6V5c0-1.1.9-2 2-2h2l.94 2H3Z" />
+          <path d="M3 6h18l-2 13H5L3 6Z" />
+          <path d="M11 10h2" />
         </svg>
       )
     },
