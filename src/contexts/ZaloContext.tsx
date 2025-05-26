@@ -29,7 +29,7 @@ interface ZaloProviderProps {
   children: ReactNode;
 }
 
-export const ZaloProvider: React.FC<ZaloProviderProps> = ({ children }) => {
+export const ZaloProvider = ({ children }: ZaloProviderProps) => {
   const [isZaloApp, setIsZaloApp] = useState(false);
   const [userInfo, setUserInfo] = useState<any | null>(null);
 
@@ -49,8 +49,8 @@ export const ZaloProvider: React.FC<ZaloProviderProps> = ({ children }) => {
     
     // Simulated user info for development
     setUserInfo({
-      name: 'Zalo User',
-      avatar: 'https://randomuser.me/api/portraits/women/44.jpg',
+      name: 'Nguyễn Văn A',
+      avatar: 'https://randomuser.me/api/portraits/men/44.jpg',
       id: '123456789',
       phone: '+84123456789'
     });
