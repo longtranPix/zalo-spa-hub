@@ -6,18 +6,16 @@ import { Header } from 'zmp-ui';
 interface HeaderZMPProps {
     title: string;
     onBackClick?: () => void;
-    rightElement?: React.ReactNode;
 }
 
-const HeaderZMP: React.FC<HeaderZMPProps> = ({ title, onBackClick, rightElement }) => {
+const HeaderZMP: React.FC<HeaderZMPProps> = ({ title, onBackClick }) => {
     return (
         <Header
             title={title}
             backIcon={onBackClick && <ChevronLeft className="text-white" />}
             onBackClick={onBackClick}
-            className="bg-zalo-purple text-white"
+            className="bg-violet-500 text-white"
             showBackIcon={!!onBackClick}
-            rightElement={rightElement}
         />
     );
 };

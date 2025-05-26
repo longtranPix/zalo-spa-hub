@@ -1,3 +1,4 @@
+
 import { useState, useEffect } from 'react';
 import { useZalo } from '@/contexts/ZaloContext';
 import PageLayout from '@/components/layout/PageLayout';
@@ -6,47 +7,47 @@ import CategoryCard from '@/components/CategoryCard';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Link, useNavigate } from 'react-router-dom';
-import { ChevronLeft, Search } from 'lucide-react';
-import { Header } from 'zmp-ui';
+import { Search } from 'lucide-react';
 
-// Mock data
+// Dịch vụ nổi bật
 const featuredServices = [
   {
     id: '1',
-    name: 'Deep Tissue Massage',
-    image: 'https://images.unsplash.com/photo-1600334089648-b0d9d3028eb2?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60',
-    price: 79,
-    duration: '60 min',
-    category: 'Massage',
-    rating: 4.8,
+    name: 'Cắt Tóc Nam Thời Trang',
+    image: 'https://images.unsplash.com/photo-1503951914875-452162b0f3f1?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60',
+    price: 150000,
+    duration: '45 phút',
+    category: 'Cắt Tóc Nam',
+    rating: 4.9,
     featured: true
   },
   {
     id: '2',
-    name: 'Aromatherapy Facial',
-    image: 'https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60',
-    price: 89,
-    duration: '45 min',
-    category: 'Facial',
-    rating: 4.7,
+    name: 'Uốn Tóc Nữ Hàn Quốc',
+    image: 'https://images.unsplash.com/photo-1560066984-138dadb4c035?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60',
+    price: 800000,
+    duration: '2.5 giờ',
+    category: 'Uốn Tóc',
+    rating: 4.8,
     featured: true
   },
   {
     id: '3',
-    name: 'Hot Stone Therapy',
-    image: 'https://images.unsplash.com/photo-1544161515-4ab6ce6db874?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60',
-    price: 99,
-    duration: '75 min',
-    category: 'Therapy',
+    name: 'Nhuộm Tóc Balayage',
+    image: 'https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60',
+    price: 1200000,
+    duration: '3 giờ',
+    category: 'Nhuộm Tóc',
     rating: 4.9,
     featured: true
   }
 ];
 
+// Danh mục chính
 const categories = [
   {
     id: 'appointment',
-    name: 'Đặt hẹn',
+    name: 'Đặt Lịch',
     icon: (
       <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="h-6 w-6">
         <rect x="3" y="4" width="18" height="18" rx="2" ry="2" />
@@ -55,141 +56,126 @@ const categories = [
         <line x1="3" y1="10" x2="21" y2="10" />
       </svg>
     ),
-    count: 5,
+    count: 8,
     color: '#7367F0'
   },
   {
-    id: 'bills',
-    name: 'Hóa đơn',
+    id: 'stylist',
+    name: 'Hair Stylist',
     icon: (
       <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="h-6 w-6">
-        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
-        <path d="M14 2v6h6" />
-        <path d="M16 13H8" />
-        <path d="M16 17H8" />
-        <path d="M10 9H8" />
+        <circle cx="12" cy="8" r="5" />
+        <path d="M20 21a8 8 0 0 0-16 0" />
       </svg>
     ),
-    count: 8,
+    count: 12,
     color: '#28C76F'
   },
   {
-    id: 'treatment',
-    name: 'Liệu trình',
+    id: 'promotion',
+    name: 'Khuyến Mãi',
     icon: (
       <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="h-6 w-6">
-        <path d="M20 21v-8a2 2 0 0 0-2-2h-1" />
-        <path d="M13 13V8a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2" />
-        <path d="m5 18 14-7" />
+        <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
       </svg>
     ),
-    count: 6,
+    count: 5,
     color: '#9F86C0'
   },
   {
     id: 'feedback',
-    name: 'Feedback',
+    name: 'Đánh Giá',
     icon: (
       <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="h-6 w-6">
         <path d="M14 9a2 2 0 0 1-2 2H6l-4 4V4c0-1.1.9-2 2-2h8a2 2 0 0 1 2 2v5Z" />
         <path d="M18 9h2a2 2 0 0 1 2 2v11l-4-4h-6a2 2 0 0 1-2-2v-1" />
       </svg>
     ),
-    count: 4,
+    count: 15,
     color: '#EA5455'
-  },
-  {
-    id: 'news',
-    name: 'Tin tức',
-    icon: (
-      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="h-6 w-6">
-        <path d="m3 21 1.9-5.7a8.5 8.5 0 1 1 3.8 3.8z" />
-      </svg>
-    ),
-    count: 7,
-    color: '#00CFE8'
-  },
+  }
 ];
 
-// Spa service categories
-const spaCategories = [
+// Danh mục dịch vụ tóc
+const hairCategories = [
   {
-    id: 'skin',
-    name: 'Điều trị da',
+    id: 'cut-men',
+    name: 'Cắt Tóc Nam',
     icon: (
       <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="h-6 w-6">
-        <path d="M20.24 12.24a6 6 0 0 0-8.49-8.49L5 10.5V19h8.5z" />
-      </svg>
-    ),
-    count: 12,
-    color: '#A162F7'
-  },
-  {
-    id: 'skincare',
-    name: 'Chăm sóc da',
-    icon: (
-      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="h-6 w-6">
-        <path d="M12 22s8-4 8-10V7l-8-5-8 5v5c0 6 8 10 8 10" />
+        <path d="M12 2v8" />
+        <path d="m16.24 7.76-5.9 5.9" />
       </svg>
     ),
     count: 8,
+    color: '#A162F7'
+  },
+  {
+    id: 'cut-women',
+    name: 'Cắt Tóc Nữ',
+    icon: (
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="h-6 w-6">
+        <circle cx="12" cy="8" r="5" />
+        <path d="M20 21a8 8 0 0 0-16 0" />
+      </svg>
+    ),
+    count: 12,
     color: '#325795'
   },
   {
-    id: 'tech',
-    name: 'Công nghệ cao',
+    id: 'coloring',
+    name: 'Nhuộm Tóc',
     icon: (
       <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="h-6 w-6">
-        <path d="m8 3 4 8 5-5 5 15H2L8 3z" />
+        <path d="M12 2a10 10 0 1 0 10 10 4 4 0 0 1-5-5 4 4 0 0 1-5-5" />
       </svg>
     ),
-    count: 5,
+    count: 10,
     color: '#D64A4A'
   },
   {
-    id: 'waxing',
-    name: 'Triệt lông',
+    id: 'perm',
+    name: 'Uốn Tóc',
     icon: (
       <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="h-6 w-6">
-        <path d="M12 2v20" />
-        <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" />
+        <path d="M20.83 14.83c-.3.3-.74.38-1.12.2a1.2 1.2 0 0 0-1.5.3" />
+        <path d="M15.83 19.83c-.3.3-.74.38-1.12.2a1.2 1.2 0 0 0-1.5.3" />
       </svg>
     ),
     count: 6,
     color: '#A162F7'
   },
   {
-    id: 'whitening',
-    name: 'Tắm trắng',
+    id: 'treatment',
+    name: 'Điều Trị Tóc',
     icon: (
       <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="h-6 w-6">
-        <circle cx="12" cy="12" r="10" />
-        <path d="m4.93 4.93 14.14 14.14" />
+        <path d="M12 22s8-4 8-10V7l-8-5-8 5v5c0 6 8 10 8 10" />
       </svg>
     ),
-    count: 4,
+    count: 9,
     color: '#D64A4A'
-  },
+  }
 ];
 
 const popularServices = [
   {
     id: '4',
-    name: 'Swedish Massage',
-    image: 'https://images.unsplash.com/photo-1519823551278-64ac92734fb1?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60',
-    price: 69,
-    duration: '50 min',
-    category: 'Massage',
-    rating: 4.6
+    name: 'Gội Đầu Massage',
+    image: 'https://images.unsplash.com/photo-1562004760-aceed7bb0fe3?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60',
+    price: 80000,
+    duration: '30 phút',
+    category: 'Chăm Sóc',
+    rating: 4.7
   },
   {
     id: '5',
-    name: 'Anti-Aging Facial',
-    image: 'https://images.unsplash.com/photo-1614659678526-2d0977ba3928?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60',
-    price: 95,
-    duration: '60 min',
-    category: 'Facial',
-    rating: 4.8
+    name: 'Tạo Kiểu Tóc Cưới',
+    image: 'https://images.unsplash.com/photo-1580618672591-eb180b1a973f?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60',
+    price: 500000,
+    duration: '2 giờ',
+    category: 'Tạo Kiểu',
+    rating: 4.9
   }
 ];
 
@@ -199,7 +185,6 @@ const Index = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    // Simulate loading data
     const timer = setTimeout(() => {
       setLoading(false);
     }, 500);
@@ -208,21 +193,20 @@ const Index = () => {
   }, []);
 
   return (
-    <PageLayout title="Serene Spa">
-      {/* Search Bar */}
-      
-      {/* <div className="mb-6 animate-slide-up">
+    <PageLayout title="Hair Studio Pro">
+      {/* Thanh tìm kiếm */}
+      <div className="mb-6 animate-slide-up">
         <div className="relative">
           <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground h-4 w-4" />
           <Input 
             type="search"
-            placeholder="Tìm kiếm"
+            placeholder="Tìm kiếm dịch vụ..."
             className="pl-10 bg-muted/40 border-none"
           />
         </div>
-      </div> */}
+      </div>
 
-      {/* Main Categories */}
+      {/* Danh mục chính */}
       <div className="mb-8 animate-slide-up">
         <div className="grid grid-cols-4 gap-4">
           {categories.map((category) => (
@@ -231,17 +215,17 @@ const Index = () => {
         </div>
       </div>
 
-      {/* Spa Categories */}
+      {/* Danh mục dịch vụ tóc */}
       <section className="mb-8 bg-white rounded-lg p-4 shadow-sm animate-slide-up">
-        <h2 className="text-lg font-semibold mb-4">Dịch vụ spa</h2>
+        <h2 className="text-lg font-semibold mb-4">Dịch vụ tóc</h2>
         <div className="grid grid-cols-5 gap-x-2 gap-y-4">
-          {spaCategories.map((category) => (
+          {hairCategories.map((category) => (
             <CategoryCard key={category.id} {...category} />
           ))}
         </div>
       </section>
 
-      {/* Featured Services */}
+      {/* Dịch vụ nổi bật */}
       <section className="mb-8 animate-slide-up" style={{ animationDelay: '100ms' }}>
         <div className="flex justify-between items-center mb-4">
           <h2 className="text-xl font-semibold">Dịch vụ nổi bật</h2>
@@ -251,6 +235,18 @@ const Index = () => {
         </div>
         <div className="grid grid-cols-1 gap-4">
           {featuredServices.map((service) => (
+            <ServiceCard key={service.id} {...service} />
+          ))}
+        </div>
+      </section>
+
+      {/* Dịch vụ phổ biến */}
+      <section className="mb-8 animate-slide-up" style={{ animationDelay: '200ms' }}>
+        <div className="flex justify-between items-center mb-4">
+          <h2 className="text-xl font-semibold">Dịch vụ phổ biến</h2>
+        </div>
+        <div className="grid grid-cols-1 gap-4">
+          {popularServices.map((service) => (
             <ServiceCard key={service.id} {...service} />
           ))}
         </div>

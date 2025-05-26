@@ -25,6 +25,13 @@ const ServiceCard: React.FC<ServiceCardProps> = ({
   rating,
   featured,
 }) => {
+  const formatPrice = (price: number) => {
+    return new Intl.NumberFormat('vi-VN', {
+      style: 'currency',
+      currency: 'VND'
+    }).format(price);
+  };
+
   return (
     <Link to={`/service/${id}`}>
       <Card className="spa-card h-full overflow-hidden animate-fade-in transition-all hover:shadow-md">
@@ -35,8 +42,8 @@ const ServiceCard: React.FC<ServiceCardProps> = ({
             className="w-full h-48 object-cover"
           />
           {featured && (
-            <Badge className="absolute top-2 left-2 bg-zalo-blue">
-              Featured
+            <Badge className="absolute top-2 left-2 bg-violet-500">
+              Nổi bật
             </Badge>
           )}
           {rating && (
@@ -55,7 +62,7 @@ const ServiceCard: React.FC<ServiceCardProps> = ({
         <CardFooter className="py-2 flex justify-between border-t border-gray-100">
           <div className="flex items-center">
             <span className="font-semibold text-zalo-darkGray">
-              ${price.toLocaleString()}
+              {formatPrice(price)}
             </span>
           </div>
           <div className="text-sm text-muted-foreground">

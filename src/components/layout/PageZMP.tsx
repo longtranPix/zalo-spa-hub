@@ -10,7 +10,6 @@ interface PageZMPProps {
   title: string;
   showBackButton?: boolean;
   hideBottomNav?: boolean;
-  rightElement?: ReactNode;
   onBackClick?: () => void;
 }
 
@@ -19,18 +18,18 @@ const PageZMP: React.FC<PageZMPProps> = ({
   title,
   showBackButton = false,
   hideBottomNav = false,
-  rightElement,
   onBackClick,
 }) => {
   return (
     <Page className="pb-14 overflow-x-hidden">
       <Header
         title={title} 
-        backIcon = {<ChevronLeft className="text-white" />}
+        backIcon={showBackButton ? <ChevronLeft className="text-white" /> : undefined}
         onBackClick={onBackClick} 
         className='bg-violet-500'
+        showBackIcon={showBackButton}
       />
-      <Box className="zalo-content ">
+      <Box className="zalo-content">
         {children}
       </Box>
       {!hideBottomNav && <BottomNav />}

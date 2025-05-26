@@ -7,6 +7,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { ZaloProvider } from "./contexts/ZaloContext";
 import Index from "./pages/Index";
 import CategoryList from "./pages/CategoryList";
+import CategoryServices from "./pages/CategoryServices";
 import ServiceDetail from "./pages/ServiceDetail";
 import Profile from "./pages/Profile";
 import Bookings from "./pages/Bookings";
@@ -25,6 +26,7 @@ const App = () => (
           <Routes>
             <Route path="/" element={<Index />} />
             <Route path="/categories" element={<CategoryList />} />
+            <Route path="/categories/:categoryId" element={<CategoryServices />} />
             <Route path="/service/:id" element={<ServiceDetail />} />
             <Route path="/profile" element={<Profile />} />
             <Route path="/bookings" element={<Bookings />} />

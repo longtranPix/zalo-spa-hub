@@ -8,7 +8,6 @@ interface PageLayoutProps {
   title: string;
   showBackButton?: boolean;
   hideBottomNav?: boolean;
-  rightElement?: ReactNode;
 }
 
 const PageLayout: React.FC<PageLayoutProps> = ({
@@ -16,7 +15,6 @@ const PageLayout: React.FC<PageLayoutProps> = ({
   title,
   showBackButton = false,
   hideBottomNav = false,
-  rightElement,
 }) => {
   const navigate = useNavigate();
 
@@ -29,7 +27,6 @@ const PageLayout: React.FC<PageLayoutProps> = ({
       title={title}
       showBackButton={showBackButton}
       hideBottomNav={hideBottomNav}
-      rightElement={rightElement}
       onBackClick={handleBackClick}
     >
       {children}

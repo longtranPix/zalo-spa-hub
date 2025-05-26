@@ -17,27 +17,24 @@ const BottomNav = () => {
       )
     },
     {
-      name: 'Danh mục',
+      name: 'Dịch vụ',
       path: '/categories',
       icon: (
         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="h-5 w-5">
-          <rect width="7" height="7" x="3" y="3" rx="1" />
-          <rect width="7" height="7" x="14" y="3" rx="1" />
-          <rect width="7" height="7" x="14" y="14" rx="1" />
-          <rect width="7" height="7" x="3" y="14" rx="1" />
+          <path d="M12 2v8" />
+          <path d="m16.24 7.76-5.9 5.9" />
         </svg>
       )
     },
     {
-      name: 'Hóa đơn',
-      path: '/bills',
+      name: 'Lịch hẹn',
+      path: '/bookings',
       icon: (
         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="h-5 w-5">
-          <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
-          <path d="M14 2v6h6" />
-          <path d="M16 13H8" />
-          <path d="M16 17H8" />
-          <path d="M10 9H8" />
+          <rect x="3" y="4" width="18" height="18" rx="2" ry="2" />
+          <line x1="16" y1="2" x2="16" y2="6" />
+          <line x1="8" y1="2" x2="8" y2="6" />
+          <line x1="3" y1="10" x2="21" y2="10" />
         </svg>
       )
     },
@@ -62,7 +59,7 @@ const BottomNav = () => {
             to={item.path}
             className={`flex flex-col items-center py-2 px-3 ${
               currentPath === item.path
-                ? 'text-zalo-purple'
+                ? 'text-violet-500'
                 : 'text-gray-500'
             }`}
           >

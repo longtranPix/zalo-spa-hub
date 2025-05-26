@@ -9,50 +9,50 @@ import { Separator } from '@/components/ui/separator';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { useZalo } from '@/contexts/ZaloContext';
 
-// Mock service data
+// Dữ liệu dịch vụ tóc
 const services = [
   {
     id: '1',
-    name: 'Deep Tissue Massage',
-    image: 'https://images.unsplash.com/photo-1600334089648-b0d9d3028eb2?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60',
-    price: 79,
-    duration: '60 min',
-    category: 'Massage',
-    rating: 4.8,
+    name: 'Cắt Tóc Nam Thời Trang',
+    image: 'https://images.unsplash.com/photo-1503951914875-452162b0f3f1?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60',
+    price: 150000,
+    duration: '45 phút',
+    category: 'Cắt Tóc Nam',
+    rating: 4.9,
     featured: true,
-    description: 'Deep tissue massage focuses on realigning deeper layers of muscles and connective tissue. It is especially helpful for chronic aches and pains in areas such as a stiff neck, lower back, and sore shoulders.',
+    description: 'Dịch vụ cắt tóc nam theo xu hướng thời trang hiện đại. Với đội ngũ hair stylist chuyên nghiệp, chúng tôi sẽ tư vấn và tạo nên kiểu tóc phù hợp với khuôn mặt và phong cách của bạn.',
     benefits: [
-      'Relieves chronic pain and tension',
-      'Improves blood circulation',
-      'Reduces inflammation',
-      'Breaks up scar tissue',
-      'Improves mobility and flexibility'
+      'Tư vấn kiểu tóc phù hợp',
+      'Sử dụng dụng cụ chuyên nghiệp',
+      'Gội đầu massage thư giãn',
+      'Tạo kiểu hoàn thiện',
+      'Bảo hành kiểu tóc 7 ngày'
     ],
-    therapists: [
-      { name: 'Emma Thompson', image: 'https://randomuser.me/api/portraits/women/44.jpg' },
-      { name: 'Michael Chen', image: 'https://randomuser.me/api/portraits/men/32.jpg' }
+    stylists: [
+      { name: 'Minh Tuấn', image: 'https://randomuser.me/api/portraits/men/44.jpg' },
+      { name: 'Hoàng Nam', image: 'https://randomuser.me/api/portraits/men/32.jpg' }
     ]
   },
   {
     id: '2',
-    name: 'Aromatherapy Facial',
-    image: 'https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60',
-    price: 89,
-    duration: '45 min',
-    category: 'Facial',
-    rating: 4.7,
+    name: 'Uốn Tóc Nữ Hàn Quốc',
+    image: 'https://images.unsplash.com/photo-1560066984-138dadb4c035?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60',
+    price: 800000,
+    duration: '2.5 giờ',
+    category: 'Uốn Tóc',
+    rating: 4.8,
     featured: true,
-    description: 'Our aromatherapy facial uses essential oils to address specific skin concerns while providing deep relaxation. The treatment includes cleansing, exfoliation, extraction, massage, and hydration for radiant skin.',
+    description: 'Dịch vụ uốn tóc theo phong cách Hàn Quốc với công nghệ hiện đại, tạo nên những lọn tóc tự nhiên, bồng bềnh và quyến rũ.',
     benefits: [
-      'Reduces stress and promotes relaxation',
-      'Improves skin texture and tone',
-      'Cleanses and detoxifies',
-      'Balances oil production',
-      'Provides deep hydration'
+      'Công nghệ uốn tóc tiên tiến',
+      'Sản phẩm chăm sóc cao cấp',
+      'Kiểu dáng tự nhiên, bền lâu',
+      'Tư vấn chăm sóc tại nhà',
+      'Bảo hành 30 ngày'
     ],
-    therapists: [
-      { name: 'Sarah Wilson', image: 'https://randomuser.me/api/portraits/women/67.jpg' },
-      { name: 'Daniel Lopez', image: 'https://randomuser.me/api/portraits/men/75.jpg' }
+    stylists: [
+      { name: 'Thu Hà', image: 'https://randomuser.me/api/portraits/women/67.jpg' },
+      { name: 'Linh Chi', image: 'https://randomuser.me/api/portraits/women/75.jpg' }
     ]
   },
 ];
@@ -63,47 +63,38 @@ const ServiceDetail = () => {
   const { showToast, showConfirm } = useZalo();
   const [activeTab, setActiveTab] = useState('details');
 
-  // Find the service by ID
   const service = services.find(s => s.id === id);
 
   if (!service) {
     return (
-      <PageLayout title="Not Found" showBackButton>
+      <PageLayout title="Không tìm thấy" showBackButton>
         <div className="flex flex-col items-center justify-center py-12">
-          <h2 className="text-xl font-semibold mb-4">Service not found</h2>
-          <Button onClick={() => navigate('/')}>Back to Home</Button>
+          <h2 className="text-xl font-semibold mb-4">Không tìm thấy dịch vụ</h2>
+          <Button onClick={() => navigate('/')}>Về trang chủ</Button>
         </div>
       </PageLayout>
     );
   }
 
   const handleBooking = async () => {
-    const confirmed = await showConfirm(`Book ${service.name} for $${service.price}?`);
+    const confirmed = await showConfirm(`Đặt lịch ${service.name} với giá ${formatPrice(service.price)}?`);
     if (confirmed) {
-      showToast('Booking successful!');
+      showToast('Đặt lịch thành công!');
       navigate('/bookings');
     }
   };
 
+  const formatPrice = (price: number) => {
+    return new Intl.NumberFormat('vi-VN', {
+      style: 'currency',
+      currency: 'VND'
+    }).format(price);
+  };
+
   return (
-    <PageLayout 
-      title={service.name} 
-      showBackButton
-      hideBottomNav
-      rightElement={
-        <Button 
-          variant="ghost" 
-          size="icon"
-          onClick={() => showToast('Added to favorites!')}
-        >
-          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="h-5 w-5">
-            <path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z" />
-          </svg>
-        </Button>
-      }
-    >
+    <PageLayout title={service.name} showBackButton hideBottomNav>
       <div className="animate-fade-in">
-        {/* Service Image */}
+        {/* Hình ảnh dịch vụ */}
         <div className="-mx-4 -mt-4 mb-4">
           <img 
             src={service.image} 
@@ -112,14 +103,14 @@ const ServiceDetail = () => {
           />
           <div className="absolute top-16 right-4">
             {service.featured && (
-              <Badge className="bg-zalo-blue">
-                Featured
+              <Badge className="bg-violet-500">
+                Nổi bật
               </Badge>
             )}
           </div>
         </div>
 
-        {/* Service Info */}
+        {/* Thông tin dịch vụ */}
         <div className="mb-6">
           <div className="flex items-center justify-between">
             <h1 className="text-2xl font-bold">{service.name}</h1>
@@ -140,20 +131,20 @@ const ServiceDetail = () => {
               </svg>
               <span className="text-muted-foreground">{service.duration}</span>
             </div>
-            <div className="text-xl font-bold text-zalo-blue">
-              ${service.price}
+            <div className="text-xl font-bold text-violet-500">
+              {formatPrice(service.price)}
             </div>
           </div>
         </div>
         
         <Separator className="my-4" />
 
-        {/* Service Tabs */}
+        {/* Tabs thông tin */}
         <Tabs value={activeTab} onValueChange={setActiveTab} className="mb-6">
           <TabsList className="grid grid-cols-3 mb-4">
-            <TabsTrigger value="details">Details</TabsTrigger>
-            <TabsTrigger value="benefits">Benefits</TabsTrigger>
-            <TabsTrigger value="therapists">Therapists</TabsTrigger>
+            <TabsTrigger value="details">Chi tiết</TabsTrigger>
+            <TabsTrigger value="benefits">Lợi ích</TabsTrigger>
+            <TabsTrigger value="stylists">Hair Stylist</TabsTrigger>
           </TabsList>
           <TabsContent value="details" className="animate-fade-in">
             <p className="text-muted-foreground">{service.description}</p>
@@ -162,7 +153,7 @@ const ServiceDetail = () => {
             <ul className="space-y-2">
               {service.benefits.map((benefit, index) => (
                 <li key={index} className="flex items-start">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="h-5 w-5 text-zalo-green mr-2 mt-0.5">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="h-5 w-5 text-green-500 mr-2 mt-0.5">
                     <path d="M20 6 9 17l-5-5" />
                   </svg>
                   <span>{benefit}</span>
@@ -170,19 +161,19 @@ const ServiceDetail = () => {
               ))}
             </ul>
           </TabsContent>
-          <TabsContent value="therapists" className="animate-fade-in">
+          <TabsContent value="stylists" className="animate-fade-in">
             <div className="space-y-3">
-              {service.therapists.map((therapist, index) => (
+              {service.stylists.map((stylist, index) => (
                 <Card key={index}>
                   <CardContent className="p-3 flex items-center">
                     <img 
-                      src={therapist.image} 
-                      alt={therapist.name} 
+                      src={stylist.image} 
+                      alt={stylist.name} 
                       className="w-12 h-12 rounded-full mr-4 object-cover"
                     />
                     <div>
-                      <h3 className="font-semibold">{therapist.name}</h3>
-                      <p className="text-sm text-muted-foreground">Certified Therapist</p>
+                      <h3 className="font-semibold">{stylist.name}</h3>
+                      <p className="text-sm text-muted-foreground">Hair Stylist Chuyên Nghiệp</p>
                     </div>
                   </CardContent>
                 </Card>
@@ -191,13 +182,13 @@ const ServiceDetail = () => {
           </TabsContent>
         </Tabs>
 
-        {/* Booking Button */}
+        {/* Nút đặt lịch */}
         <div className="fixed bottom-0 left-0 right-0 bg-white border-t p-4 shadow-lg">
           <Button 
-            className="w-full bg-zalo-blue hover:bg-blue-600 text-white py-6"
+            className="w-full bg-violet-500 hover:bg-violet-600 text-white py-6"
             onClick={handleBooking}
           >
-            Book Now
+            Đặt lịch ngay
           </Button>
         </div>
       </div>
