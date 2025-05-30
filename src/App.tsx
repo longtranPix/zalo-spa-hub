@@ -19,36 +19,25 @@ import NewsList from "./pages/NewsList";
 import NewsDetail from "./pages/NewsDetail";
 import BookingForm from "./pages/BookingForm";
 import NotFound from "./pages/NotFound";
+import { App, ZMPRouter } from "zmp-ui";
+import { Layout } from "./components/layout";
 
 const queryClient = new QueryClient();
 
-const App = () => (
+const MyApp = () => (
   <QueryClientProvider client={queryClient}>
-    <BrowserRouter>
       <ZaloProvider>
         <TooltipProvider>
-          <Toaster />
-          <Sonner />
-          <Routes>
-            <Route path="/" element={<Index />} />
-            <Route path="/categories" element={<CategoryList />} />
-            <Route path="/categories/:categoryId" element={<CategoryServices />} />
-            <Route path="/service/:id" element={<ServiceDetail />} />
-            <Route path="/profile" element={<Profile />} />
-            <Route path="/bookings" element={<Bookings />} />
-            <Route path="/booking" element={<BookingForm />} />
-            <Route path="/bills" element={<UserBills />} />
-            <Route path="/bills/:id" element={<BillDetail />} />
-            <Route path="/stores" element={<StoreList />} />
-            <Route path="/stores/:id" element={<StoreDetail />} />
-            <Route path="/news" element={<NewsList />} />
-            <Route path="/news/:id" element={<NewsDetail />} />
-            <Route path="*" element={<NotFound />} />
-          </Routes>
+          <App>
+            <Toaster />
+            <Sonner />
+            <ZMPRouter>
+              <Layout/>
+            </ZMPRouter>
+          </App>
         </TooltipProvider>
       </ZaloProvider>
-    </BrowserRouter>
   </QueryClientProvider>
 );
 
-export default App;
+export default MyApp;

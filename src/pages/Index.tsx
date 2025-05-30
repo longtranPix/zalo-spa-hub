@@ -218,7 +218,7 @@ const Index = () => {
       {/* Danh mục dịch vụ tóc */}
       <section className="mb-8 bg-white rounded-lg p-4 shadow-sm animate-slide-up">
         <h2 className="text-lg font-semibold mb-4">Dịch vụ tóc</h2>
-        <div className="grid grid-cols-5 gap-x-2 gap-y-4">
+        <div className="grid grid-cols-4 gap-x-2 gap-y-4">
           {hairCategories.map((category) => (
             <CategoryCard key={category.id} {...category} />
           ))}

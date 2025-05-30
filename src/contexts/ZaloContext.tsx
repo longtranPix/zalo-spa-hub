@@ -40,9 +40,7 @@ export const ZaloProvider = ({ children }: ZaloProviderProps) => {
       setIsZaloApp(isZalo);
       
       // Simulating Zalo SDK for development purposes
-      if (process.env.NODE_ENV === 'development') {
         setIsZaloApp(true);
-      }
     };
 
     checkZaloApp();

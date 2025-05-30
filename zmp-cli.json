@@ -2,10 +2,9 @@
   "cwd": "",
   "name": "Cub Spa",
   "framework": "react-typescript",
-  "cssPreProcessor": "scss",
+  "cssPreProcessor": "css",
   "includeTailwind": true,
   "package": "zmp-ui",
-  "stateManagement": "recoil",
   "newProject": true,
   "template": "single-view",
   "theming": {
