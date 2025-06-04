@@ -5,8 +5,6 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "start": "zmp start",
-    "deploy": "zmp deploy",
     "build": "vite build",
     "build:dev": "vite build --mode development",
     "lint": "eslint .",
