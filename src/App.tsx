@@ -26,17 +26,19 @@ const queryClient = new QueryClient();
 
 const MyApp = () => (
   <QueryClientProvider client={queryClient}>
-      <ZaloProvider>
-        <TooltipProvider>
-          <App>
-            <Toaster />
-            <Sonner />
-            <ZMPRouter>
-              <Layout/>
-            </ZMPRouter>
-          </App>
-        </TooltipProvider>
-      </ZaloProvider>
+    <ZaloProvider>
+      <TooltipProvider>
+        <App>
+          <Toaster />
+          <Sonner />
+      <BrowserRouter>
+          {/* <ZMPRouter> */}
+            <Layout />
+          {/* </ZMPRouter> */}
+      </BrowserRouter>
+        </App>
+      </TooltipProvider>
+    </ZaloProvider>
   </QueryClientProvider>
 );
 
