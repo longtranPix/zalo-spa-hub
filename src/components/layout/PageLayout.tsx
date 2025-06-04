@@ -1,6 +1,6 @@
 
 import React, { ReactNode } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from 'zmp-ui';
 import PageZMP from './PageZMP';
 
 interface PageLayoutProps {
