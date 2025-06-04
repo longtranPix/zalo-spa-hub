@@ -1,3 +1,4 @@
+
 import BillDetail from "@/pages/BillDetail";
 import BookingForm from "@/pages/BookingForm";
 import Bookings from "@/pages/Bookings";
@@ -8,6 +9,7 @@ import NewsDetail from "@/pages/NewsDetail";
 import NewsList from "@/pages/NewsList";
 import NotFound from "@/pages/NotFound";
 import Profile from "@/pages/Profile";
+import RatingScreen from "@/pages/RatingScreen";
 import ServiceDetail from "@/pages/ServiceDetail";
 import StoreDetail from "@/pages/StoreDetail";
 import StoreList from "@/pages/StoreList";
@@ -36,6 +38,7 @@ export const Layout: FC = () => {
                     <Route path="/stores/:id" element={<StoreDetail />} />
                     <Route path="/news" element={<NewsList />} />
                     <Route path="/news/:id" element={<NewsDetail />} />
+                    <Route path="/rating" element={<RatingScreen />} />
                     <Route path="*" element={<NotFound />} />
                 </Routes>
             </Box>
