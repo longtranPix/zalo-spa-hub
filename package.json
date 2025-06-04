@@ -64,7 +64,6 @@
     "tailwind-merge": "^2.5.2",
     "tailwindcss-animate": "^1.0.7",
     "vaul": "^0.9.3",
-    "zmp-cli": "^3.15.12",
     "zmp-sdk": "^2.45.2",
     "zmp-ui": "^1.11.5",
     "zmp-vite-plugin": "^1.1.6",

@@ -1,5 +1,6 @@
+
 import React, { useState } from 'react';
-import { useNavigate } from 'zmp-ui';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 import PageLayout from '@/components/layout/PageLayout';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -11,13 +12,12 @@ import { useToast } from '@/hooks/use-toast';
 
 const RatingScreen = () => {
   const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
   const { toast } = useToast();
   
-  // Get URL parameters manually since we're using ZMP
-  const urlParams = new URLSearchParams(window.location.search);
-  const type = urlParams.get('type') || 'service';
-  const id = urlParams.get('id') || '1';
-  const name = urlParams.get('name') || 'Unknown';
+  const type = searchParams.get('type') || 'service'; // service, employee, salon
+  const id = searchParams.get('id') || '1';
+  const name = searchParams.get('name') || 'Unknown';
   
   const [rating, setRating] = useState(0);
   const [hoverRating, setHoverRating] = useState(0);

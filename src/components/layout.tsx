@@ -15,13 +15,14 @@ import StoreDetail from "@/pages/StoreDetail";
 import StoreList from "@/pages/StoreList";
 import UserBills from "@/pages/UserBills";
 import { FC } from "react";
-import { Routes, Route } from "zmp-ui";
+import { Route, Routes, ScrollRestoration } from "react-router-dom";
 import { Box } from "zmp-ui";
 
 export const Layout: FC = () => {
 
     return (
         <Box flex flexDirection="column" className="h-screen">
+            {/* <ScrollRestoration /> */}
             <Box className="flex-1 flex flex-col overflow-hidden">
                 <Routes>
                     <Route path="/" element={<Index />} />
