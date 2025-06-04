@@ -31,11 +31,11 @@ const MyApp = () => (
         <App>
           <Toaster />
           <Sonner />
-      <BrowserRouter>
-          {/* <ZMPRouter> */}
+      {/* <BrowserRouter> */}
+          <ZMPRouter>
             <Layout />
-          {/* </ZMPRouter> */}
-      </BrowserRouter>
+          </ZMPRouter>
+      {/* </BrowserRouter> */}
         </App>
       </TooltipProvider>
     </ZaloProvider>

@@ -4,7 +4,7 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "zmp dev",
+    "dev": "vite",
     "start": "zmp start",
     "deploy": "zmp deploy",
     "build": "vite build",
