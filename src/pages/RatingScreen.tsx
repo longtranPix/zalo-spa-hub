@@ -2,14 +2,12 @@
 import React, { useState } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import PageLayout from '@/components/layout/PageLayout';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
-import { Textarea } from '@/components/ui/textarea';
-import { Label } from '@/components/ui/label';
+import { Card, CardContent } from '@/components/ui/card';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { Star, User, Scissors } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
+import EmployeeSelector from '@/components/rating/EmployeeSelector';
+import ServiceSelector from '@/components/rating/ServiceSelector';
+import RatingForm from '@/components/rating/RatingForm';
 
 const RatingScreen = () => {
   const navigate = useNavigate();
@@ -135,19 +133,6 @@ const RatingScreen = () => {
     }, 1000);
   };
 
-  const getRatingText = (rating: number) => {
-    if (rating === 0) return '';
-    const texts = ['Terrible', 'Poor', 'Fair', 'Good', 'Excellent'];
-    return texts[rating - 1];
-  };
-
-  const formatPrice = (price: number) => {
-    return new Intl.NumberFormat('vi-VN', {
-      style: 'currency',
-      currency: 'VND'
-    }).format(price);
-  };
-
   return (
     <PageLayout title={ratingData.title} showBackButton>
       <div className="space-y-6 animate-fade-in">
@@ -169,169 +154,35 @@ const RatingScreen = () => {
 
         {/* Employee Selection */}
         {type === 'employee' && (
-          <Card>
-            <CardHeader>
-              <CardTitle className="flex items-center space-x-2">
-                <User className="w-5 h-5" />
-                <span>Select Employee</span>
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
-              <Select value={selectedEmployee} onValueChange={setSelectedEmployee}>
-                <SelectTrigger>
-                  <SelectValue placeholder="Choose an employee to rate" />
-                </SelectTrigger>
-                <SelectContent>
-                  {mockEmployees.map((employee) => (
-                    <SelectItem key={employee.id} value={employee.id}>
-                      <div className="flex items-center space-x-3">
-                        <Avatar className="w-8 h-8">
-                          <AvatarImage src={employee.image} alt={employee.name} />
-                          <AvatarFallback>{employee.name.charAt(0)}</AvatarFallback>
-                        </Avatar>
-                        <div>
-                          <div className="font-medium">{employee.name}</div>
-                          <div className="text-sm text-muted-foreground">{employee.specialty}</div>
-                        </div>
-                      </div>
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
-            </CardContent>
-          </Card>
+          <EmployeeSelector
+            selectedEmployee={selectedEmployee}
+            onEmployeeChange={setSelectedEmployee}
+            employees={mockEmployees}
+          />
         )}
 
         {/* Service Selection */}
         {type === 'service' && (
-          <Card>
-            <CardHeader>
-              <CardTitle className="flex items-center space-x-2">
-                <Scissors className="w-5 h-5" />
-                <span>Select Service</span>
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
-              <Select value={selectedService} onValueChange={setSelectedService}>
-                <SelectTrigger>
-                  <SelectValue placeholder="Choose a service to rate" />
-                </SelectTrigger>
-                <SelectContent>
-                  {mockServices.map((service) => (
-                    <SelectItem key={service.id} value={service.id}>
-                      <div className="flex justify-between items-center w-full">
-                        <div>
-                          <div className="font-medium">{service.name}</div>
-                          <div className="text-sm text-muted-foreground">{service.category}</div>
-                        </div>
-                        <div className="text-sm font-medium">
-                          {formatPrice(service.price)}
-                        </div>
-                      </div>
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
-            </CardContent>
-          </Card>
+          <ServiceSelector
+            selectedService={selectedService}
+            onServiceChange={setSelectedService}
+            services={mockServices}
+          />
         )}
 
-        {/* Rating Card */}
-        <Card>
-          <CardHeader>
-            <CardTitle className="text-center">Your Rating</CardTitle>
-          </CardHeader>
-          <CardContent className="space-y-6">
-            <div className="text-center text-sm text-muted-foreground">
-              {ratingData.subtitle}
-            </div>
-
-            {/* Star Rating */}
-            <div className="flex flex-col items-center space-y-2">
-              <div className="flex space-x-1">
-                {[1, 2, 3, 4, 5].map((star) => (
-                  <button
-                    key={star}
-                    type="button"
-                    className="p-1 transition-transform hover:scale-110"
-                    onClick={() => handleStarClick(star)}
-                    onMouseEnter={() => handleStarHover(star)}
-                    onMouseLeave={handleStarLeave}
-                  >
-                    <Star
-                      className={`w-8 h-8 ${
-                        star <= (hoverRating || rating)
-                          ? 'text-yellow-400 fill-yellow-400'
-                          : 'text-gray-300'
-                      } transition-colors`}
-                    />
-                  </button>
-                ))}
-              </div>
-              {(rating > 0 || hoverRating > 0) && (
-                <p className="text-sm font-medium text-violet-600">
-                  {getRatingText(hoverRating || rating)}
-                </p>
-              )}
-            </div>
-
-            {/* Comment Section */}
-            <div className="space-y-2">
-              <Label htmlFor="comment">Additional Comments (Optional)</Label>
-              <Textarea
-                id="comment"
-                placeholder={ratingData.placeholder}
-                value={comment}
-                onChange={(e) => setComment(e.target.value)}
-                rows={4}
-                className="resize-none"
-              />
-            </div>
-
-            {/* Submit Button */}
-            <Button
-              onClick={handleSubmit}
-              disabled={isSubmitting || rating === 0}
-              className="w-full bg-violet-500 hover:bg-violet-600"
-            >
-              {isSubmitting ? 'Submitting...' : 'Submit Rating'}
-            </Button>
-          </CardContent>
-        </Card>
-
-        {/* Rating Guidelines */}
-        <Card className="bg-violet-50">
-          <CardContent className="p-4">
-            <h4 className="font-medium text-violet-800 mb-2">Rating Guidelines</h4>
-            <div className="space-y-1 text-sm text-violet-700">
-              <div className="flex items-center space-x-2">
-                <Star className="w-4 h-4 text-yellow-400 fill-yellow-400" />
-                <span className="font-medium">5 stars:</span>
-                <span>Excellent experience</span>
-              </div>
-              <div className="flex items-center space-x-2">
-                <Star className="w-4 h-4 text-yellow-400 fill-yellow-400" />
-                <span className="font-medium">4 stars:</span>
-                <span>Good experience</span>
-              </div>
-              <div className="flex items-center space-x-2">
-                <Star className="w-4 h-4 text-yellow-400 fill-yellow-400" />
-                <span className="font-medium">3 stars:</span>
-                <span>Fair experience</span>
-              </div>
-              <div className="flex items-center space-x-2">
-                <Star className="w-4 h-4 text-yellow-400 fill-yellow-400" />
-                <span className="font-medium">2 stars:</span>
-                <span>Poor experience</span>
-              </div>
-              <div className="flex items-center space-x-2">
-                <Star className="w-4 h-4 text-yellow-400 fill-yellow-400" />
-                <span className="font-medium">1 star:</span>
-                <span>Terrible experience</span>
-              </div>
-            </div>
-          </CardContent>
-        </Card>
+        {/* Rating Form */}
+        <RatingForm
+          rating={rating}
+          hoverRating={hoverRating}
+          comment={comment}
+          isSubmitting={isSubmitting}
+          ratingData={ratingData}
+          onStarClick={handleStarClick}
+          onStarHover={handleStarHover}
+          onStarLeave={handleStarLeave}
+          onCommentChange={setComment}
+          onSubmit={handleSubmit}
+        />
       </div>
     </PageLayout>
   );
