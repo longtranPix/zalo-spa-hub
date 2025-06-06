@@ -1,6 +1,6 @@
 
 import React, { useState } from 'react';
-import { useNavigate } from 'zmp-ui';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 import PageLayout from '@/components/layout/PageLayout';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -13,13 +13,12 @@ import { useToast } from '@/hooks/use-toast';
 
 const RatingScreen = () => {
   const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
   const { toast } = useToast();
   
-  // Get URL parameters using URLSearchParams
-  const urlParams = new URLSearchParams(window.location.search);
-  const type = urlParams.get('type') || 'store';
-  const storeId = urlParams.get('storeId') || '1';
-  const storeName = urlParams.get('storeName') || 'Beauty Salon';
+  const type = searchParams.get('type') || 'store';
+  const storeId = searchParams.get('storeId') || '1';
+  const storeName = searchParams.get('storeName') || 'Beauty Salon';
   
   const [selectedEmployee, setSelectedEmployee] = useState('');
   const [selectedService, setSelectedService] = useState('');
