@@ -70,8 +70,8 @@ const BookingForm = () => {
   };
 
   return (
-    <PageLayout title="Đặt lịch" showBackButton hideBottomNav>
-      <div className="space-y-4 animate-fade-in">
+    // <PageLayout title="Đặt lịch" showBackButton hideBottomNav>
+      <div className="space-y-4 animate-fade-in mb-6">
         {/* Store Selection */}
         <Card>
           <CardHeader>
@@ -226,7 +226,7 @@ const BookingForm = () => {
         )}
 
         {/* Submit Button */}
-        <div className="sticky bottom-0 bg-white pt-4 pb-4">
+        <div className="pt-4">
           <Button 
             className="w-full bg-violet-500 hover:bg-violet-600"
             onClick={handleSubmit}
@@ -236,7 +236,7 @@ const BookingForm = () => {
           </Button>
         </div>
       </div>
-    </PageLayout>
+    // </PageLayout>
   );
 };
 

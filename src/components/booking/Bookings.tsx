@@ -6,6 +6,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { useZalo } from '@/contexts/ZaloContext';
+import BookingForm from './BookingForm';
 
 // Mock bookings data
 const upcomingBookings = [
@@ -87,10 +88,15 @@ const Bookings = () => {
   return (
     <PageLayout title="My Bookings">
       <Tabs value={activeTab} onValueChange={setActiveTab} className="animate-fade-in">
-        <TabsList className="grid grid-cols-2 mb-4">
-          <TabsTrigger value="upcoming">Upcoming</TabsTrigger>
-          <TabsTrigger value="past">Past</TabsTrigger>
+        <TabsList className="grid grid-cols-3 mb-4 bg-gray-200">
+          <TabsTrigger value="booking">Đặt lịch</TabsTrigger>
+          <TabsTrigger value="upcoming">Sắp tới</TabsTrigger>
+          <TabsTrigger value="past">Đã làm</TabsTrigger>
         </TabsList>
+
+        <TabsContent value="booking" className="space-y-4">
+          <BookingForm/>
+        </TabsContent>
         
         <TabsContent value="upcoming" className="space-y-4">
           {upcomingBookings.length === 0 ? (

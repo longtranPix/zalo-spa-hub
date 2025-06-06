@@ -2,8 +2,8 @@
 import { useState, useEffect } from 'react';
 import { useZalo } from '@/contexts/ZaloContext';
 import PageLayout from '@/components/layout/PageLayout';
-import ServiceCard from '@/components/ServiceCard';
-import CategoryCard from '@/components/CategoryCard';
+import ServiceCard from '@/components/services/ServiceCard';
+import CategoryCard from '@/components/categories/CategoryCard';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Link, useNavigate } from 'react-router-dom';

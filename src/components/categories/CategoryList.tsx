@@ -1,7 +1,7 @@
 
 import React from 'react';
 import PageLayout from '@/components/layout/PageLayout';
-import CategoryCard from '@/components/CategoryCard';
+import CategoryCard from '@/components/categories/CategoryCard';
 
 // Tất cả danh mục dịch vụ tóc
 const allCategories = [

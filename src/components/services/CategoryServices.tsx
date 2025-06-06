@@ -2,7 +2,7 @@
 import React from 'react';
 import { useParams } from 'react-router-dom';
 import PageLayout from '@/components/layout/PageLayout';
-import ServiceCard from '@/components/ServiceCard';
+import ServiceCard from '@/components/services/ServiceCard';
 
 // Dữ liệu dịch vụ theo danh mục
 const categoryServices = {
